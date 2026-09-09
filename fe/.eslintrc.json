@@ -22,6 +22,10 @@
       "files": ["**/*.ts?(x)"],
       "parser": "@typescript-eslint/parser",
       "extends": ["plugin:@typescript-eslint/recommended", "plugin:import/typescript"]
+    },
+    {
+      "files": ["*.config.js", "*.config.cjs"],
+      "env": { "node": true }
     }
   ],
   "rules": {
