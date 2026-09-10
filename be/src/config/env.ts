@@ -5,7 +5,7 @@ dotenv.config({ quiet: true });
 
 const envSchema = z.object({
   PORT: z.coerce.number().int().positive().default(8080),
-  MONGODB_URI: z.string().min(1, 'MONGODB_URI is required'),
+  MONGODB_URI: z.string().default('mongodb://127.0.0.1:27017/fs-test-task'),
   CORS_ORIGIN: z
     .string()
     .default('http://localhost:5173')
@@ -17,7 +17,11 @@ const envSchema = z.object({
     ),
 });
 
-const parsed = envSchema.safeParse(process.env);
+const provided = Object.fromEntries(
+  Object.entries(process.env).filter(([, value]) => value !== '')
+);
+
+const parsed = envSchema.safeParse(provided);
 
 if (!parsed.success) {
   const details = parsed.error.issues
