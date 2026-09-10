@@ -1,0 +1,126 @@
+import type { Product } from '../models/product.model.js';
+
+type SeedProduct = Omit<Product, 'createdAt' | 'updatedAt'>;
+
+const IMAGE =
+  'https://f00.esfr.pl/foto/5/71215465857/b7c91239dad8f45eae1abe48d24c6b3b/samsung-ww90ta046te,71215465857_8.jpg';
+
+export const products: SeedProduct[] = [
+  {
+    image: IMAGE,
+    code: 'WW90T754ABT',
+    name: 'Pralka QuickDrive™',
+    color: 'biała',
+    capacity: 9,
+    dimensions: { depth: 55, width: 60, height: 85, unit: 'cm' },
+    features: [
+      'Drzwi AddWash™',
+      'Panel AI Control',
+      'Silnik inwerterowy',
+      'Wyświetlacz elektroniczny',
+    ],
+    energyClass: 'A',
+    price: {
+      value: 2999.1,
+      currency: 'zł',
+      installment: { value: 53.31, period: 60 },
+      validFrom: new Date('2021-01-01'),
+      validTo: new Date('2021-12-31'),
+    },
+  },
+  {
+    image: IMAGE,
+    code: 'WW90T754ABH',
+    name: 'Pralka QuickDrive™',
+    color: 'biała',
+    capacity: 10.5,
+    dimensions: { depth: 55, width: 60, height: 85, unit: 'cm' },
+    features: ['Panel AI Control', 'Silnik inwerterowy', 'Wyświetlacz elektroniczny'],
+    energyClass: 'A',
+    price: {
+      value: 1999.2,
+      currency: 'zł',
+      installment: { value: 53.31, period: 60 },
+      validFrom: new Date('2021-01-01'),
+      validTo: new Date('2021-12-31'),
+    },
+  },
+  {
+    image: IMAGE,
+    code: 'WW90T754ABC',
+    name: 'Pralka QuickDrive™',
+    color: 'biała',
+    capacity: 8,
+    dimensions: { depth: 55, width: 60, height: 85, unit: 'cm' },
+    features: [
+      'Drzwi AddWash™',
+      'Panel AI Control',
+      'Silnik inwerterowy',
+      'Wyświetlacz elektroniczny',
+    ],
+    energyClass: 'A',
+    price: {
+      value: 1799.0,
+      currency: 'zł',
+      installment: { value: 53.31, period: 60 },
+      validFrom: new Date('2021-01-01'),
+      validTo: new Date('2021-12-31'),
+    },
+  },
+  {
+    image: IMAGE,
+    code: 'WW90T754ABD',
+    name: 'Pralka QuickDrive™',
+    color: 'biała',
+    capacity: 9,
+    dimensions: { depth: 55, width: 60, height: 85, unit: 'cm' },
+    features: ['Drzwi AddWash™', 'Panel AI Control', 'Silnik inwerterowy'],
+    energyClass: 'B',
+    price: {
+      value: 1999.0,
+      currency: 'zł',
+      installment: { value: 53.31, period: 60 },
+      validFrom: new Date('2021-01-01'),
+      validTo: new Date('2021-12-31'),
+    },
+  },
+  {
+    image: IMAGE,
+    code: 'WW90T754ABE',
+    name: 'Pralka QuickDrive™',
+    color: 'biała',
+    capacity: 10.5,
+    dimensions: { depth: 55, width: 60, height: 85, unit: 'cm' },
+    features: [
+      'Drzwi AddWash™',
+      'Panel AI Control',
+      'Silnik inwerterowy',
+      'Wyświetlacz elektroniczny',
+    ],
+    energyClass: 'C',
+    price: {
+      value: 1999.0,
+      currency: 'zł',
+      installment: { value: 53.31, period: 60 },
+      validFrom: new Date('2021-01-01'),
+      validTo: new Date('2021-12-31'),
+    },
+  },
+  {
+    image: IMAGE,
+    code: 'WW90T754ABF',
+    name: 'Pralka QuickDrive™',
+    color: 'biała',
+    capacity: 8,
+    dimensions: { depth: 55, width: 60, height: 85, unit: 'cm' },
+    features: ['Drzwi AddWash™', 'Panel AI Control', 'Wyświetlacz elektroniczny'],
+    energyClass: 'B',
+    price: {
+      value: 1999.0,
+      currency: 'zł',
+      installment: { value: 53.31, period: 60 },
+      validFrom: new Date('2021-01-01'),
+      validTo: new Date('2021-12-31'),
+    },
+  },
+];
