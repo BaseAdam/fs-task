@@ -7,6 +7,7 @@ const sortOptions: DropdownOption[] = [
 ];
 
 const featuresOptions: DropdownOption[] = [
+  { name: 'Drzwi AddWash™' },
   { name: 'Panel AI Control' },
   { name: 'Silnik inwerterowy' },
   { name: 'Wyświetlacz elektroniczny' },

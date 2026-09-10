@@ -1,12 +1,18 @@
-export type EnergyClass = 'A' | 'B' | 'C';
+export type EnergyClass = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G';
 
-export type Capacity = 8 | 9 | 10.5;
+// capacity values can be modified depends on items in DB
+// when a new product appears with new capacity we don't need to add values here
+export type Capacity = number;
 
-export type Features =
-  | 'Drzwi AddWash™'
-  | 'Panel AI Control'
-  | 'Silnik inwerterowy'
-  | 'Wyświetlacz elektroniczny';
+// similar case to Capacity
+export type Features = string;
+
+interface Dimensions {
+  depth: number;
+  width: number;
+  height: number;
+  unit: string;
+}
 
 export interface IProduct {
   image: string;
@@ -14,7 +20,7 @@ export interface IProduct {
   name: string;
   color: string;
   capacity: Capacity;
-  dimensions: string;
+  dimensions: Dimensions;
   features: Features[];
   energyClass: EnergyClass;
   price: {
@@ -27,4 +33,11 @@ export interface IProduct {
     validFrom: Date;
     validTo: Date;
   };
+}
+
+export interface ProductsMeta {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
 }

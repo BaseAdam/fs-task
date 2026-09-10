@@ -36,7 +36,10 @@ export const ProductCard = (props: IProduct) => {
         Pojemność(kg): <span className="text-black font-bold">{capacity}</span>
       </p>
       <p className="text-xs text-gray-500">
-        Wymiary(GxSxW): <span className="text-black font-bold">{dimensions}</span>
+        Wymiary(GxSxW):{' '}
+        <span className="text-black font-bold">
+          {dimensions.depth} x {dimensions.width} x {dimensions.height} {dimensions.unit}
+        </span>
       </p>
       <p className="text-xs text-gray-500 mb-3.5">
         Funkcje: <span className="text-black font-bold">{parseFeatures}</span>
