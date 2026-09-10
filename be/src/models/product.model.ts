@@ -6,7 +6,7 @@ const productSchema = new Schema(
     code: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     color: { type: String, required: true },
-    // without enum bcs when new product appears with new capacity then we would need to change code here
+    // without enum bcs when a new product appears with new capacity then we would need to change code here
     capacity: { type: Number, required: true, min: 1 },
     // split into 3 fields bcs as one string we never know which number means what
     dimensions: {
@@ -33,7 +33,7 @@ const productSchema = new Schema(
     timestamps: true,
     versionKey: false,
     toJSON: {
-      transform: (_doc, ret) => {
+      transform: (_doc, ret: Record<string, unknown>) => {
         const { _id, ...rest } = ret;
         return rest;
       },

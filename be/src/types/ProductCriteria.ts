@@ -1,6 +1,8 @@
+import type { Product } from '../models/product.model.js';
+
 export interface ProductCriteria {
   search?: string;
   capacity?: number;
-  energyClass?: string;
+  energyClass?: Product['energyClass'];
   feature?: string;
 }
