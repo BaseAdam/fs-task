@@ -6,9 +6,13 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "start": "node dist/server.js",
     "seed": "tsx src/seed/run.ts",
+    "test": "vitest run",
+    "test:unit": "vitest run src",
+    "test:integration": "vitest run tests",
+    "test:watch": "vitest",
     "format": "prettier --write --ignore-unknown .",
     "typecheck": "tsc --noEmit"
   },
@@ -20,11 +24,16 @@
     "zod": "^4.5.4"
   },
   "devDependencies": {
+    "@testcontainers/mongodb": "^12.1.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^22.20.1",
+    "@types/supertest": "^7.2.1",
     "prettier": "2.8.2",
+    "supertest": "^7.2.2",
+    "testcontainers": "^12.1.0",
     "tsx": "^4.23.13",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.0"
   }
 }
