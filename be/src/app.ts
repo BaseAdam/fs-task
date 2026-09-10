@@ -5,6 +5,7 @@ import { env } from './config/env.js';
 import { isDbConnected } from './db/connect.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { notFoundHandler } from './middleware/notFound.js';
+import { apiRouter } from './routes/routes.js';
 
 export function createApp(): Express {
   const app = express();
@@ -20,6 +21,8 @@ export function createApp(): Express {
       db: connected ? 'connected' : 'disconnected',
     });
   });
+
+  app.use('/api', apiRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
