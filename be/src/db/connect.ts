@@ -1,14 +1,18 @@
 import mongoose from 'mongoose';
 
+mongoose.set('strictQuery', true);
+
+mongoose.connection.on('error', (error) => {
+  console.error('MongoDB connection error:', error);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.warn('MongoDB disconnected');
+});
+
 export const isDbConnected = (): boolean => mongoose.connection.readyState === 1;
 
 export async function connectDb(uri: string): Promise<void> {
-  mongoose.set('strictQuery', true);
-
-  mongoose.connection.on('error', (error) => {
-    console.error('MongoDB connection error:', error);
-  });
-
   await mongoose.connect(uri, {
     serverSelectionTimeoutMS: 5000,
   });

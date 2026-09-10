@@ -5,6 +5,7 @@ import { products } from './products.js';
 
 async function seed(): Promise<void> {
   await connectDb(env.MONGODB_URI);
+  await ProductModel.syncIndexes();
 
   const operations = products.map((product) => ({
     updateOne: {
