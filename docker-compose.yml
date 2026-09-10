@@ -1,2 +1,43 @@
-version: '3'
-# your services for the task
+# The frontend is started separately with `npm run dev:fe`.
+
+services:
+  mongo:
+    image: mongo:8
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ['CMD', 'mongosh', '--quiet', '--eval', "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+  seed:
+    build:
+      context: .
+      dockerfile: be/Dockerfile
+    command: ['node', 'be/dist/seed/run.js']
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/fs-test-task
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  api:
+    build:
+      context: .
+      dockerfile: be/Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      PORT: 8080
+      MONGODB_URI: mongodb://mongo:27017/fs-test-task
+      CORS_ORIGIN: http://localhost:5173
+    depends_on:
+      mongo:
+        condition: service_healthy
+      seed:
+        condition: service_completed_successfully
+
+volumes:
+  mongo-data:
