@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { BadRequestError } from '../errors/appError.js';
 import { getProducts } from '../service/products.service.js';
 
-const querySchema = z.object({
+export const querySchema = z.object({
   search: z.string().trim().min(1).optional(),
   capacity: z.coerce.number().positive().optional(),
   energyClass: z.enum(['A', 'B', 'C', 'D', 'E', 'F', 'G']).optional(),
