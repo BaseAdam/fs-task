@@ -12,7 +12,7 @@
     "test": "vitest run",
     "test:unit": "vitest run src",
     "test:integration": "vitest run tests",
-    "test:watch": "vitest",
+    "test:watch": "vitest src",
     "format": "prettier --write --ignore-unknown .",
     "typecheck": "tsc --noEmit"
   },
