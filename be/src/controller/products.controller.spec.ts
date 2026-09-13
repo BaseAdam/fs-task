@@ -45,6 +45,13 @@ describe('listProducts', () => {
     expect(getProductsMock).toHaveBeenCalledWith({ page: 1, limit: 6 });
   });
 
+  it('drops parameters that hold nothing but spaces', async () => {
+    const { finished } = handle({ search: '   ', feature: ' ' });
+    await finished;
+
+    expect(getProductsMock).toHaveBeenCalledWith({ page: 1, limit: 6 });
+  });
+
   it('answers with whatever the service returned', async () => {
     const answer = { products: [], meta: { total: 3, page: 1, limit: 6, totalPages: 1 } };
     getProductsMock.mockResolvedValue(answer);

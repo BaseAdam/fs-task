@@ -1,10 +1,11 @@
 import type { QueryFilter, SortOrder } from 'mongoose';
 
+import type { SortField } from '../constants/products.js';
 import { ProductModel, type Product } from '../models/product.model.js';
-import { ProductCriteria } from '../types/ProductCriteria.js';
+import type { ProductCriteria } from '../types/productCriteria.js';
 
 interface ProductQuery extends ProductCriteria {
-  sort?: 'price' | 'capacity';
+  sort?: SortField;
   skip: number;
   limit: number;
 }
@@ -13,7 +14,7 @@ function escapeRegex(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-const sortFields: Record<'price' | 'capacity', string> = {
+const sortFields: Record<SortField, string> = {
   price: 'price.value',
   capacity: 'capacity',
 };

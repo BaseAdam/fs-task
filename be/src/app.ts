@@ -7,13 +7,12 @@ import { isDbConnected } from './db/connect.js';
 import { openApiDocument } from './docs/openapi.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { notFoundHandler } from './middleware/notFound.js';
-import { apiRouter } from './routes/routes.js';
+import { productsRouter } from './routes/products.routes.js';
 
 export function createApp(): Express {
   const app = express();
 
   app.use(cors({ origin: env.CORS_ORIGIN }));
-  app.use(express.json());
 
   app.get('/api/health-check', (_req, res) => {
     const connected = isDbConnected();
@@ -24,7 +23,7 @@ export function createApp(): Express {
     });
   });
 
-  app.use('/api', apiRouter);
+  app.use('/api/products', productsRouter);
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiDocument));
 
   app.use(notFoundHandler);

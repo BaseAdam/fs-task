@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { ENERGY_CLASSES } from '../constants/products.js';
 import { querySchema } from '../controller/products.controller.js';
 
 function queryParameters() {
@@ -33,7 +34,7 @@ const productSchema = {
       },
     },
     features: { type: 'array', items: { type: 'string' } },
-    energyClass: { type: 'string', enum: ['A', 'B', 'C', 'D', 'E', 'F', 'G'] },
+    energyClass: { type: 'string', enum: ENERGY_CLASSES },
     price: {
       type: 'object',
       properties: {
@@ -93,7 +94,7 @@ export const openApiDocument = {
       get: {
         summary: 'List products',
         description:
-          'Every parameter is optional. A parameter sent with no value counts as absent, because the frontend uses an empty string to mean "no filter".',
+          'Every parameter is optional. A parameter sent with no value, or with nothing but spaces, counts as absent, because the frontend uses an empty string to mean "no filter".',
         parameters: queryParameters(),
         responses: {
           200: {

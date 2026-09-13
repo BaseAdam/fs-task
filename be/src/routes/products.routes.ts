@@ -2,6 +2,6 @@ import { Router } from 'express';
 
 import { listProducts } from '../controller/products.controller.js';
 
-export const apiRouter = Router();
+export const productsRouter = Router();
 
-apiRouter.get('/products', listProducts);
+productsRouter.get('/', listProducts);

@@ -5,7 +5,13 @@ it. The original task description is kept in [TASK.md](./TASK.md).
 
 ## Quick start
 
-Two commands, in two terminals:
+Install the dependencies once, from the repository root:
+
+```bash
+npm install
+```
+
+Then two commands, in two terminals:
 
 ```bash
 docker compose up      # or: npm run dev:be   → MongoDB, seed data and the API on :8080
@@ -47,6 +53,9 @@ optional. `be/.env.example` lists what can be overridden:
 | `PORT` | `8080` |
 | `MONGODB_URI` | `mongodb://127.0.0.1:27017/fs-test-task` |
 | `CORS_ORIGIN` | `http://localhost:5173` |
+
+The frontend has one setting of its own, `VITE_API_URL` (default `http://localhost:8080`), read
+from `fe/env/.env` - see `fe/env/.env.example`.
 
 ## The API
 
@@ -92,6 +101,18 @@ Both error paths share one shape:
 `400` for a query parameter of the wrong type or outside its range, `404` for an unknown route,
 `500` for anything unexpected. On the frontend a failed request shows a message and a retry
 button; a failed "Pokaż więcej" leaves the products already on screen in place.
+
+## Backend structure
+
+A request to `GET /api/products` passes through four layers in `be/src`, each calling only the
+one below it:
+
+| folder | job |
+| --- | --- |
+| `routes` | maps the URL to a controller |
+| `controller` | validates the query string and sends the response |
+| `service` | turns `page` and `limit` into what the database needs, and counts the pages |
+| `repository` | the only code that queries MongoDB, through the model in `models` |
 
 ## Design decisions
 
@@ -145,7 +166,7 @@ npm run test:unit         # no Docker, ~300 ms
 npm run test:integration  # starts a MongoDB container
 ```
 
-**20 unit tests** run against stand-ins, with no database. **12 integration tests** go through the
+**21 unit tests** run against stand-ins, with no database. **16 integration tests** go through the
 whole stack - route, controller, service, repository, MongoDB - using
 [testcontainers](https://testcontainers.com/) with the same `mongo:7` image `docker compose` uses,
 and [supertest](https://github.com/ladjs/supertest) to make real HTTP requests without binding a

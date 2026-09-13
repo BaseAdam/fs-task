@@ -1,5 +1,7 @@
 import { InferSchemaType, model, Schema } from 'mongoose';
 
+import { ENERGY_CLASSES } from '../constants/products.js';
+
 const productSchema = new Schema(
   {
     image: { type: String, required: true },
@@ -17,7 +19,7 @@ const productSchema = new Schema(
     },
     // without enum - same situation as with capacity property
     features: { type: [String], required: true },
-    energyClass: { type: String, required: true, enum: ['A', 'B', 'C', 'D', 'E', 'F', 'G'] },
+    energyClass: { type: String, required: true, enum: ENERGY_CLASSES },
     price: {
       value: { type: Number, required: true },
       currency: { type: String, required: true },

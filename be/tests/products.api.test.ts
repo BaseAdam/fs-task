@@ -56,6 +56,15 @@ describe('GET /api/products', () => {
     );
   });
 
+  it('filters by energy class', async () => {
+    const response = await request(app).get('/api/products?energyClass=B');
+
+    expect(response.body.meta.total).toBe(countWhere((p) => p.energyClass === 'B'));
+    expect(
+      response.body.products.every((p: { energyClass: string }) => p.energyClass === 'B')
+    ).toBe(true);
+  });
+
   it('matches a feature stored inside the array', async () => {
     const feature = 'Drzwi AddWash™';
     const response = await request(app).get(`/api/products?feature=${encodeURIComponent(feature)}`);
@@ -89,6 +98,13 @@ describe('GET /api/products', () => {
     expect(prices).toEqual([...prices].sort((a: number, b: number) => a - b));
   });
 
+  it('sorts by capacity ascending', async () => {
+    const response = await request(app).get(`/api/products?sort=capacity&limit=${products.length}`);
+
+    const capacities = response.body.products.map((p: { capacity: number }) => p.capacity);
+    expect(capacities).toEqual(products.map((p) => p.capacity).sort((a, b) => a - b));
+  });
+
   it('pages through the list without repeating or losing a product', async () => {
     const half = Math.ceil(products.length / 2);
     const first = await request(app).get(`/api/products?sort=price&limit=${half}&page=1`);
@@ -110,6 +126,13 @@ describe('GET /api/products', () => {
     expect(response.status).toBe(200);
     expect(response.body.meta.total).toBe(products.length);
   });
+
+  it('ignores a search made only of spaces, as the search box sends it', async () => {
+    const response = await request(app).get('/api/products?search=+');
+
+    expect(response.status).toBe(200);
+    expect(response.body.meta.total).toBe(products.length);
+  });
 });
 
 describe('rejected requests', () => {
@@ -122,6 +145,16 @@ describe('rejected requests', () => {
 
   it('answers 404 with the same envelope for an unknown route', async () => {
     const response = await request(app).get('/api/nothing-here');
+
+    expect(response.status).toBe(404);
+    expect(response.body.error.code).toBe('NOT_FOUND');
+  });
+
+  it('answers 404, not 500, to a POST whose JSON body is broken', async () => {
+    const response = await request(app)
+      .post('/api/products')
+      .set('Content-Type', 'application/json')
+      .send('{');
 
     expect(response.status).toBe(404);
     expect(response.body.error.code).toBe('NOT_FOUND');

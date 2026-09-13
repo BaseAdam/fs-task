@@ -1,8 +1,9 @@
-import { ProductCriteria } from '../types/ProductCriteria.js';
+import type { SortField } from '../constants/products.js';
 import { countProducts, findProducts } from '../repository/products.repository.js';
+import type { ProductCriteria } from '../types/productCriteria.js';
 
 interface GetProductsParams extends ProductCriteria {
-  sort?: 'price' | 'capacity';
+  sort?: SortField;
   page: number;
   limit: number;
 }
