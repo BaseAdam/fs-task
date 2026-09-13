@@ -5,7 +5,6 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 COPY be/package.json ./be/
-COPY fe/package.json ./fe/
 
 RUN npm ci --workspace be --include-workspace-root
 
