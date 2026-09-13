@@ -12,7 +12,7 @@ const app = createApp();
 let container: StartedMongoDBContainer;
 
 beforeAll(async () => {
-  container = await new MongoDBContainer('mongo:8').start();
+  container = await new MongoDBContainer('mongo:7').start();
 
   await connectDb(`${container.getConnectionString()}?directConnection=true`);
   await ProductModel.syncIndexes();

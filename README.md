@@ -147,7 +147,7 @@ npm run test:integration  # starts a MongoDB container
 
 **20 unit tests** run against stand-ins, with no database. **12 integration tests** go through the
 whole stack - route, controller, service, repository, MongoDB - using
-[testcontainers](https://testcontainers.com/) with the same `mongo:8` image `docker compose` uses,
+[testcontainers](https://testcontainers.com/) with the same `mongo:7` image `docker compose` uses,
 and [supertest](https://github.com/ladjs/supertest) to make real HTTP requests without binding a
 port.
 
