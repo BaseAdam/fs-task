@@ -37,7 +37,8 @@ process.on('SIGTERM', () => void shutdown());
 async function start(): Promise<void> {
   await connectDb(env.MONGODB_URI);
 
-  server = createApp().listen(env.PORT, () => {
+  server = createApp().listen(env.PORT);
+  server.on('listening', () => {
     console.log(`API listening on http://localhost:${env.PORT}`);
   });
 
